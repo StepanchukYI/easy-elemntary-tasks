@@ -9,6 +9,8 @@ import (
 
 var exampleSting = "30,-1,-6,90,-6,22,52,123,2,35,6"
 
+func posOrNeg(numbers []int)
+
 func main() {
 	var negative []int
 	var positive []int
@@ -18,7 +20,6 @@ func main() {
 		v, err := strconv.Atoi(value)
 
 		if err != nil {
-			// handle error
 			fmt.Println(err)
 			os.Exit(2)
 		}
