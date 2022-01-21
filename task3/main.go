@@ -16,7 +16,6 @@ func fibonacci() func() int {
 		lastNum = ret
 		return ret
 	}
-
 }
 
 func main() {

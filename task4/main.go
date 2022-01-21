@@ -3,6 +3,7 @@ package main
 import (
 	"bufio"
 	"fmt"
+	"log"
 	"os"
 	"strconv"
 )
@@ -87,12 +88,12 @@ func isPolindrome(s1, s2 string) bool {
 	return false
 }
 
-func lvl1(number string) {
+func easyLevel(number string) {
 	fmt.Println("Is Polindrome inside " + number + "?")
 	fmt.Println(findFullStringPolindrome(number))
 }
 
-func lvl2(number string) {
+func midLevel(number string) {
 	fmt.Println("First Polindrome inside " + number + "?")
 	ret := findAllStringPolindrome(number)
 	if len(ret) == 0 {
@@ -102,7 +103,7 @@ func lvl2(number string) {
 	fmt.Println(ret)
 }
 
-func lvl3(number string) {
+func hardLevel(number string) {
 	fmt.Println("All Polindrome inside " + number + "?")
 	ret := findAllStringPolindrome(number)
 	if len(ret) == 0 {
@@ -112,26 +113,59 @@ func lvl3(number string) {
 	fmt.Println(ret)
 }
 
+func getVal(scan *bufio.Scanner) (val string) {
+	scan.Scan()
+	val = scan.Text()
+
+	if val == "" {
+		log.Fatal("Empty Imput string")
+	}
+
+	if err := scan.Err(); err != nil {
+		log.Fatal(err)
+	}
+
+	return
+}
+
+func convertStringToInt(val string) (number int) {
+	number, err := strconv.Atoi(val)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	return
+}
+
+func validateInput(num int) (res bool, err []string) {
+	res = true
+
+	if num < 10 {
+		err = append(err, "invalid input")
+	}
+
+	if len(err) > 0 {
+		res = false
+	}
+
+	return
+}
+
 func main() {
 	scanner := bufio.NewScanner(os.Stdin)
 
 	fmt.Println("Please, enter width:")
-	scanner.Scan()
-	number := scanner.Text()
-	numberVal, err := strconv.Atoi(number)
-	if err != nil {
-		// handle error
-		fmt.Println(err)
-		os.Exit(2)
-	}
-	if numberVal < 10 {
-		fmt.Println("invalid input")
-		return
+	number := getVal(scanner)
+	numberVal := convertStringToInt(number)
+
+	valid, err := validateInput(numberVal)
+	if !valid {
+		log.Fatal(err)
 	}
 
-	lvl1(number)
+	easyLevel(number)
 
-	lvl2(number)
+	midLevel(number)
 
-	lvl3(number)
+	hardLevel(number)
 }

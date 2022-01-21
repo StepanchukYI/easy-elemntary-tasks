@@ -3,6 +3,7 @@ package main
 import (
 	"bufio"
 	"fmt"
+	"log"
 	"os"
 	"strconv"
 )
@@ -16,32 +17,46 @@ func printBoard(x int, y int, symbol string) {
 	}
 }
 
+func getVal(scan *bufio.Scanner) (val string) {
+	scan.Scan()
+	val = scan.Text()
+
+	if val == "" {
+		log.Fatal("Empty Imput string")
+	}
+
+	if err := scan.Err(); err != nil {
+		log.Fatal(err)
+	}
+
+	return
+}
+
+func convertStringToInt(val string) (number int) {
+	number, err := strconv.Atoi(val)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	return
+}
+
+func getIntFromScan(scan *bufio.Scanner) (val int) {
+	val = convertStringToInt(getVal(scan))
+	return
+}
+
 func main() {
 	scanner := bufio.NewScanner(os.Stdin)
 
 	fmt.Println("Please, enter width:")
-	scanner.Scan()
-	x := scanner.Text()
-	xVal, err := strconv.Atoi(x)
-	if err != nil {
-		// handle error
-		fmt.Println(err)
-		os.Exit(2)
-	}
-	fmt.Println("Please, enter Height:")
-	scanner.Scan()
-	y := scanner.Text()
+	xVal := getIntFromScan(scanner)
 
-	yVal, err := strconv.Atoi(y)
-	if err != nil {
-		// handle error
-		fmt.Println(err)
-		os.Exit(2)
-	}
+	fmt.Println("Please, enter Height:")
+	yVal := getIntFromScan(scanner)
 
 	fmt.Println("Please, enter Symbol to write:")
-	scanner.Scan()
-	symbol := scanner.Text()
+	symbol := getVal(scanner)
 
 	printBoard(xVal, yVal, symbol)
 }

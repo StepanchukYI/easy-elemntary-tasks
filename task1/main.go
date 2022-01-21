@@ -2,26 +2,18 @@ package main
 
 import (
 	"fmt"
-	"os"
+	"log"
 	"strconv"
 	"strings"
 )
 
 var exampleSting = "30,-1,-6,90,-6,22,52,123,2,35,6"
 
-func posOrNeg(numbers []int)
-
-func main() {
-	var negative []int
-	var positive []int
-	numbers := strings.Split(exampleSting, ",")
-
+func posOrNeg(numbers []string) (positive, negative []int) {
 	for _, value := range numbers {
 		v, err := strconv.Atoi(value)
-
 		if err != nil {
-			fmt.Println(err)
-			os.Exit(2)
+			log.Fatal(err)
 		}
 
 		if v > 0 {
@@ -30,6 +22,13 @@ func main() {
 			negative = append(negative, v)
 		}
 	}
+	return
+}
+
+func main() {
+	numbers := strings.Split(exampleSting, ",")
+
+	positive, negative := posOrNeg(numbers)
 
 	fmt.Println("Positive Numbers:")
 	printSlice(positive)
