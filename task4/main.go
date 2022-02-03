@@ -1,11 +1,8 @@
 package main
 
 import (
-	"bufio"
 	"fmt"
 	"log"
-	"os"
-	"strconv"
 )
 
 func reverseSting(s string) (result string) {
@@ -113,30 +110,6 @@ func hardLevel(number string) {
 	fmt.Println(ret)
 }
 
-func getVal(scan *bufio.Scanner) (val string) {
-	scan.Scan()
-	val = scan.Text()
-
-	if val == "" {
-		log.Fatal("Empty Imput string")
-	}
-
-	if err := scan.Err(); err != nil {
-		log.Fatal(err)
-	}
-
-	return
-}
-
-func convertStringToInt(val string) (number int) {
-	number, err := strconv.Atoi(val)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	return
-}
-
 func validateInput(num int) (res bool, err []string) {
 	res = true
 
@@ -152,20 +125,18 @@ func validateInput(num int) (res bool, err []string) {
 }
 
 func main() {
-	scanner := bufio.NewScanner(os.Stdin)
-
-	fmt.Println("Please, enter width:")
-	number := getVal(scanner)
-	numberVal := convertStringToInt(number)
-
-	valid, err := validateInput(numberVal)
-	if !valid {
+	inputString, err := getVal("Please, enter your number:")
+	if err != nil {
 		log.Fatal(err)
 	}
 
-	easyLevel(number)
+	if inputString == "" {
+		log.Fatal(EmptyValueError)
+	}
 
-	midLevel(number)
+	easyLevel(inputString)
 
-	hardLevel(number)
+	midLevel(inputString)
+
+	hardLevel(inputString)
 }

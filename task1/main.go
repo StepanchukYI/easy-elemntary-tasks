@@ -30,13 +30,12 @@ func main() {
 
 	positive, negative := posOrNeg(numbers)
 
-	fmt.Println("Positive Numbers:")
-	printSlice(positive)
-	fmt.Println("Negative Numbers:")
-	printSlice(negative)
+	printSlice("Positive Numbers:", positive)
+	printSlice("Negative Numbers:", negative)
 
 }
 
-func printSlice(s []int) {
-	fmt.Printf("len=%d cap=%d %v\n", len(s), cap(s), s)
+func printSlice(promnt string, array []int) {
+	fmt.Println(promnt)
+	fmt.Printf("len=%d cap=%d %v\n", len(array), cap(array), array)
 }

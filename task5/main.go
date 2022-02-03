@@ -1,10 +1,9 @@
 package main
 
 import (
-	"bufio"
+	"errors"
 	"fmt"
 	"log"
-	"os"
 	"strconv"
 	"strings"
 )
@@ -38,68 +37,55 @@ func sumStringArr(array []string) (sum int) {
 	return
 }
 
-func getVal(scan *bufio.Scanner) (val string) {
-	scan.Scan()
-	val = scan.Text()
-
-	if val == "" {
-		log.Fatal("Empty Imput string")
-	}
-
-	if err := scan.Err(); err != nil {
-		log.Fatal(err)
-	}
-
-	return
-}
-
-func convertStringToInt(val string) (number int) {
-	number, err := strconv.Atoi(val)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	return
-}
-
-func getIntFromScan(scan *bufio.Scanner) (val int) {
-	val = convertStringToInt(getVal(scan))
-	return
-}
-
-func validateMin(num int) (res bool) {
+func validateMin(num int) (res bool, err error) {
 	res = true
 	if num < 99999 {
-		return false
+		return false, errors.New("invalid input")
 	}
 
-	return true
+	return true, nil
 }
 
-func validateMax(num int) (res bool) {
+func validateMax(num int) (res bool, err error) {
 	res = true
 	if num > 999999 {
-		return false
+		return false, errors.New("invalid input")
 	}
 
-	return true
+	return true, nil
 }
 
 func main() {
-	scanner := bufio.NewScanner(os.Stdin)
-
-	fmt.Println("Please, enter min:")
-	min := getIntFromScan(scanner)
-
-	if !validateMin(min) {
-		log.Fatal("invalid input")
+	minString, err := getVal("Please, enter min:")
+	if err != nil {
+		log.Fatal(err)
+	}
+	if minString == "" {
+		log.Fatal(EmptyValueError)
+	}
+	min, err := strconv.Atoi(minString)
+	if err != nil {
+		log.Fatal(err)
+	}
+	minValid, minErr := validateMin(min)
+	if !minValid {
+		log.Fatal(minErr)
 	}
 
-	fmt.Println("Please, enter max:")
-	max := getIntFromScan(scanner)
-
-	if !validateMax(max) {
-		log.Fatal("invalid input")
+	maxString, err := getVal("Please, enter max:")
+	if err != nil {
+		log.Fatal(err)
+	}
+	if maxString == "" {
+		log.Fatal(EmptyValueError)
+	}
+	max, err := strconv.Atoi(maxString)
+	if err != nil {
+		log.Fatal(err)
+	}
+	maxValid, maxErr := validateMax(max)
+	if !maxValid {
+		log.Fatal(maxErr)
 	}
 
 	fmt.Println(calcLackyCount(min, max))
