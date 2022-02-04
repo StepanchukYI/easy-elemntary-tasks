@@ -1,6 +1,7 @@
 package main
 
 import (
+	cu "customutils"
 	"errors"
 	"fmt"
 	"log"
@@ -56,12 +57,12 @@ func validateMax(num int) (res bool, err error) {
 }
 
 func main() {
-	minString, err := getVal("Please, enter min:")
+	minString, err := cu.GetVal("Please, enter min:")
 	if err != nil {
 		log.Fatal(err)
 	}
 	if minString == "" {
-		log.Fatal(EmptyValueError)
+		log.Fatal(cu.EmptyValueError)
 	}
 	min, err := strconv.Atoi(minString)
 	if err != nil {
@@ -72,12 +73,12 @@ func main() {
 		log.Fatal(minErr)
 	}
 
-	maxString, err := getVal("Please, enter max:")
+	maxString, err := cu.GetVal("Please, enter max:")
 	if err != nil {
 		log.Fatal(err)
 	}
 	if maxString == "" {
-		log.Fatal(EmptyValueError)
+		log.Fatal(cu.EmptyValueError)
 	}
 	max, err := strconv.Atoi(maxString)
 	if err != nil {

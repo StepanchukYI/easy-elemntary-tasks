@@ -1,4 +1,4 @@
-package main
+package customutils
 
 import (
 	"bufio"
@@ -9,7 +9,7 @@ import (
 
 var EmptyValueError = errors.New("Value should be not empty!")
 
-func getVal(promnt string) (val string, err error) {
+func GetVal(promnt string) (val string, err error) {
 	scanner := bufio.NewScanner(os.Stdin)
 
 	fmt.Println(promnt)

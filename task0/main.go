@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"strconv"
+	cu "customutils"
 )
 
 func printBoard(x int, y int, symbol string) {
@@ -16,36 +17,36 @@ func printBoard(x int, y int, symbol string) {
 }
 
 func main() {
-	x, err := getVal("Please, enter width: ")
+	x, err := cu.GetVal("Please, enter width: ")
 	if err != nil {
 		log.Fatal(err)
 	}
 	if x == "" {
-		log.Fatal(EmptyValueError)
+		log.Fatal(cu.EmptyValueError)
 	}
 	xVal, err := strconv.Atoi(x)
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	y, err := getVal("Please, enter height: ")
+	y, err := cu.GetVal("Please, enter height: ")
 	if err != nil {
 		log.Fatal(err)
 	}
 	if x == "" {
-		log.Fatal(EmptyValueError)
+		log.Fatal(cu.EmptyValueError)
 	}
 	yVal, err := strconv.Atoi(y)
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	symbol, err := getVal("Please, enter Symbol to write: ")
+	symbol, err := cu.GetVal("Please, enter Symbol to write: ")
 	if err != nil {
 		log.Fatal(err)
 	}
 	if symbol == "" {
-		log.Fatal(EmptyValueError)
+		log.Fatal(cu.EmptyValueError)
 	}
 
 	printBoard(xVal, yVal, symbol)

@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"log"
+	cu "customutils"
 )
 
 func reverseSting(s string) (result string) {
@@ -125,13 +126,13 @@ func validateInput(num int) (res bool, err []string) {
 }
 
 func main() {
-	inputString, err := getVal("Please, enter your number:")
+	inputString, err := cu.GetVal("Please, enter your number:")
 	if err != nil {
 		log.Fatal(err)
 	}
 
 	if inputString == "" {
-		log.Fatal(EmptyValueError)
+		log.Fatal(cu.EmptyValueError)
 	}
 
 	easyLevel(inputString)
